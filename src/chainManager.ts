@@ -202,19 +202,13 @@ class ChainManager {
                 await this.waitForNetwork(providerUrl, 2000); // Short timeout to check if already running
                 isNetworkReady = true;
                 console.log(`✅ Hardhat node already running at ${providerUrl}`);
-              } catch (error) {
+              } catch {
                 console.log(`🛠️ Starting Hardhat node at ${providerUrl}...`);
-                
+
                 // Start a hardhat node process
                 const child = fork(
                   "node_modules/hardhat/internal/cli/cli.js",
-                  [
-                    "node",
-                    "--port",
-                    "8545",
-                    "--hostname",
-                    "127.0.0.1"
-                  ],
+                  ["node", "--port", "8545", "--hostname", "127.0.0.1"],
                   {
                     env: {
                       ...process.env,
@@ -244,7 +238,7 @@ class ChainManager {
 
                 // Store the process
                 this.processes.set(chainName, child);
-                
+
                 // Wait for the network to be ready
                 try {
                   await this.waitForNetwork(providerUrl, 30000); // Longer timeout for startup
@@ -581,7 +575,7 @@ class ChainManager {
         const timeout = setTimeout(() => {
           if (!process.killed) {
             try {
-              process.kill("SIGKILL"); 
+              process.kill("SIGKILL");
             } catch (error) {
               errors.push(new ProcessCleanupError(name, error as Error));
             }
@@ -653,7 +647,7 @@ class ChainManager {
         lastError = error as Error;
         // Only log if we're not in a test environment or if there's still time left
         const timeRemaining = timeout - (Date.now() - startTime);
-        if (timeRemaining > 1000 && process.env.NODE_ENV !== 'test') {
+        if (timeRemaining > 1000 && process.env.NODE_ENV !== "test") {
           console.log(`Waiting for network at ${url}...`);
         }
         await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying

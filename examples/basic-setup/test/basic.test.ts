@@ -14,7 +14,7 @@ describe("Basic Multichain Setup", function () {
     try {
       const ethereumProvider = getProvider("ethereum");
       expect(ethereumProvider).to.not.be.undefined;
-    } catch (error) {
+    } catch {
       // Expected if ethereum chain is not running
       console.log("Ethereum provider not available - run with test-multichain task");
     }

@@ -43,15 +43,17 @@ describe("Advanced Multi-Chain Configuration", function () {
       const expectedChainIds = {
         ethereum: 1,
         polygon: 137,
-        arbitrum: 42161
+        arbitrum: 42161,
       };
 
       for (const [chainName, expectedChainId] of Object.entries(expectedChainIds)) {
         const provider = getProvider(chainName);
         const network = await provider.getNetwork();
 
-        expect(network.chainId).to.equal(expectedChainId,
-          `${chainName} should have chain ID ${expectedChainId}`);
+        expect(network.chainId).to.equal(
+          expectedChainId,
+          `${chainName} should have chain ID ${expectedChainId}`
+        );
       }
     });
 
@@ -60,9 +62,8 @@ describe("Advanced Multi-Chain Configuration", function () {
         const provider = getProvider(chainName);
         const blockNumber = await provider.getBlockNumber();
 
-        expect(blockNumber).to.be.a('number');
-        expect(blockNumber).to.be.greaterThan(0,
-          `${chainName} should have a valid block number`);
+        expect(blockNumber).to.be.a("number");
+        expect(blockNumber).to.be.greaterThan(0, `${chainName} should have a valid block number`);
 
         console.log(`📦 ${chainName} current block: ${blockNumber}`);
       }
@@ -76,8 +77,10 @@ describe("Advanced Multi-Chain Configuration", function () {
         const provider = getProvider(chainName);
         const balance = await provider.getBalance(vitalikAddress);
 
-        expect(balance).to.be.a('object'); // BigNumber
-        console.log(`💰 ${chainName} balance for ${vitalikAddress}: ${ethers.utils.formatEther(balance)} ETH`);
+        expect(balance).to.be.a("object"); // BigNumber
+        console.log(
+          `💰 ${chainName} balance for ${vitalikAddress}: ${ethers.utils.formatEther(balance)} ETH`
+        );
       }
     });
   });
@@ -114,7 +117,10 @@ describe("Advanced Multi-Chain Configuration", function () {
 
   describe("Cross-chain comparisons", function () {
     it("should show different block times across chains", async function () {
-      const blockInfos: Record<string, any> = {};
+      const blockInfos: Record<
+        string,
+        { blockNumber: number; timestamp: number | null; chainName: string }
+      > = {};
 
       for (const chainName of testChains) {
         const provider = getProvider(chainName);
@@ -122,10 +128,9 @@ describe("Advanced Multi-Chain Configuration", function () {
         const block = await provider.getBlock(blockNumber);
 
         blockInfos[chainName] = {
-          number: blockNumber,
-          timestamp: block.timestamp,
-          gasLimit: block.gasLimit.toString(),
-          gasUsed: block.gasUsed.toString()
+          blockNumber,
+          timestamp: block ? block.timestamp : null,
+          chainName,
         };
       }
 
@@ -140,8 +145,8 @@ describe("Advanced Multi-Chain Configuration", function () {
 
         // Block numbers should generally be different (unless by coincidence)
         // Mainly checking that we're getting real data
-        expect(blockInfos[chain1].number).to.be.a('number');
-        expect(blockInfos[chain2].number).to.be.a('number');
+        expect(blockInfos[chain1].blockNumber).to.be.a("number");
+        expect(blockInfos[chain2].blockNumber).to.be.a("number");
       }
     });
   });

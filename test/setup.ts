@@ -12,9 +12,9 @@ process.on("unhandledRejection", error => {
 afterAll(async () => {
   try {
     await ChainManager.cleanup();
-  } catch (error) {
+  } catch {
     // Ignore cleanup errors
   }
 });
 
-export { };
+export {};

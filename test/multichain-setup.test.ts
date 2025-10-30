@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ChildProcess } from "child_process";
 import ChainManager, {
@@ -16,7 +15,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
   jest.setTimeout(60000); // Increase timeout for network operations
 
   beforeEach(() => {
-    hre = ({
+    hre = {
       network: { name: "" },
       ethers: { provider: {} },
       run: jest.fn(),
@@ -31,7 +30,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           },
         },
       },
-    } as unknown) as HardhatRuntimeEnvironment;
+    } as unknown as HardhatRuntimeEnvironment;
   });
 
   afterEach(async () => {
@@ -75,7 +74,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should handle missing RPC configuration", async () => {
-        const configWithoutRpc = ({
+        const configWithoutRpc = {
           chainManager: {
             chains: {
               testchain: {
@@ -84,7 +83,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown) as HardhatRuntimeEnvironment["userConfig"]; // Better typing
+        } as unknown as HardhatRuntimeEnvironment["userConfig"]; // Better typing
 
         await expect(ChainManager.setupChains(["testchain"], configWithoutRpc)).rejects.toThrow(
           ChainConfigError
@@ -245,7 +244,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
-        const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(true);
+        const validateNetworkSpy = jest
+          .spyOn(ChainManager, "validateNetwork")
+          .mockResolvedValue(true);
         const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockResolvedValue();
 
         const providers = await ChainManager.setupChains(["chain123"], configWithChain);
@@ -270,9 +271,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           },
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
-        await expect(ChainManager.setupChains(["invalidchain"], configWithInvalidUrl)).rejects.toThrow(
-          ChainConfigError
-        );
+        await expect(
+          ChainManager.setupChains(["invalidchain"], configWithInvalidUrl)
+        ).rejects.toThrow(ChainConfigError);
       });
 
       it("should handle missing chain configuration", async () => {
@@ -282,9 +283,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           },
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
-        await expect(ChainManager.setupChains(["missingchain"], configWithMissingChain)).rejects.toThrow(
-          ChainConfigError
-        );
+        await expect(
+          ChainManager.setupChains(["missingchain"], configWithMissingChain)
+        ).rejects.toThrow(ChainConfigError);
       });
 
       it("should handle missing chainId and provide default", async () => {
@@ -301,7 +302,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
-        const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(true);
+        const validateNetworkSpy = jest
+          .spyOn(ChainManager, "validateNetwork")
+          .mockResolvedValue(true);
         const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockResolvedValue();
 
         // This should succeed with default chainId
@@ -330,7 +333,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
-        const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(true);
+        const validateNetworkSpy = jest
+          .spyOn(ChainManager, "validateNetwork")
+          .mockResolvedValue(true);
         const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockResolvedValue();
 
         // The implementation uses dynamic port allocation, so this should succeed
@@ -357,7 +362,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
-        const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(false);
+        const validateNetworkSpy = jest
+          .spyOn(ChainManager, "validateNetwork")
+          .mockResolvedValue(false);
         const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockResolvedValue();
 
         // Port config is ignored by the implementation, so this should succeed
@@ -386,7 +393,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       } as unknown as HardhatRuntimeEnvironment["userConfig"];
 
       // Mock network validation and waitForNetwork to pass without actually creating processes
-      const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(true);
+      const validateNetworkSpy = jest
+        .spyOn(ChainManager, "validateNetwork")
+        .mockResolvedValue(true);
       const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockResolvedValue();
 
       // This test verifies that the process management code path is exercised
@@ -422,7 +431,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
   describe("Network Validation Edge Cases", () => {
     it("should handle network validation timeout", async () => {
       // Mock validateNetwork to return false immediately instead of actually timing out
-      const validateNetworkSpy = jest.spyOn(ChainManager, "validateNetwork").mockResolvedValue(false);
+      const validateNetworkSpy = jest
+        .spyOn(ChainManager, "validateNetwork")
+        .mockResolvedValue(false);
 
       const isValid = await ChainManager.validateNetwork("http://192.0.2.1:8545", 10); // Very short timeout
       expect(isValid).toBe(false);
@@ -442,7 +453,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
 
     it("should handle waitForNetwork timeout", async () => {
       // Mock waitForNetwork to reject immediately instead of actually timing out
-      const waitForNetworkSpy = jest.spyOn(ChainManager, "waitForNetwork").mockRejectedValue(new Error("Network timeout"));
+      const waitForNetworkSpy = jest
+        .spyOn(ChainManager, "waitForNetwork")
+        .mockRejectedValue(new Error("Network timeout"));
 
       await expect(ChainManager.waitForNetwork("http://192.0.2.1:8545", 10)).rejects.toThrow();
 
@@ -458,9 +471,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
     it("should handle missing chainManager config", async () => {
       const configWithoutChainManager = {} as HardhatRuntimeEnvironment["userConfig"];
 
-      await expect(ChainManager.setupChains(["testchain"], configWithoutChainManager)).rejects.toThrow(
-        ChainConfigError
-      );
+      await expect(
+        ChainManager.setupChains(["testchain"], configWithoutChainManager)
+      ).rejects.toThrow(ChainConfigError);
     });
 
     it("should handle missing chains config", async () => {
@@ -556,7 +569,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           pid: 12345,
           killed: true,
           kill: jest.fn(),
-          on: jest.fn()
+          on: jest.fn(),
         };
 
         // Add mock process to instances
@@ -580,7 +593,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               // Immediately call the callback to simulate clean exit
               setTimeout(callback, 10);
             }
-          })
+          }),
         };
 
         // Add mock process to instances
@@ -621,7 +634,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       it("should warn about low port numbers", () => {
         const result = (ChainManager as any).validatePort(7000);
         expect(result.isValid).toBe(true); // 7000 is >= 1024, so it's valid
-        expect(result.warnings).toContain("Using a port below 8000 might conflict with system services");
+        expect(result.warnings).toContain(
+          "Using a port below 8000 might conflict with system services"
+        );
       });
 
       it("should handle RPC URL with localhost", () => {

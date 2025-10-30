@@ -16,7 +16,7 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
   this.timeout(300000); // 5 minutes for complex operations
 
   const chains = ["ethereum", "polygon", "arbitrum"];
-  let deployments: Record<string, DeploymentInfo> = {};
+  const deployments: Record<string, DeploymentInfo> = {};
   let deployer: Signer;
 
   before(async function () {
@@ -68,7 +68,7 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
           deploymentGas: gasUsed,
           chainId: network.chainId,
           chainName,
-          blockNumber: currentBlock
+          blockNumber: currentBlock,
         };
 
         console.log(`✅ ${chainName}: Contract deployed at ${contract.address}`);
@@ -88,7 +88,7 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
       const gasCosts = Object.entries(deployments).map(([chain, info]) => ({
         chain: chain.padEnd(10),
         gas: info.deploymentGas.toLocaleString().padStart(10),
-        chainId: info.chainId.toString().padStart(8)
+        chainId: info.chainId.toString().padStart(8),
       }));
 
       gasCosts.forEach(cost => {
@@ -176,7 +176,10 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
     it("should show different block numbers across chains", async function () {
       console.log("\n📊 Cross-chain block comparison:");
 
-      const blockData: Record<string, any> = {};
+      const blockData: Record<
+        string,
+        { blockNumber: number; timestamp: number | null; chainName: string }
+      > = {};
 
       for (const chainName of chains) {
         const provider = getProvider(chainName);
@@ -184,10 +187,9 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
         const block = await provider.getBlock(blockNumber);
 
         blockData[chainName] = {
-          number: blockNumber,
-          timestamp: new Date(block.timestamp * 1000).toISOString(),
-          gasLimit: block.gasLimit.toString(),
-          difficulty: block.difficulty?.toString() || "N/A"
+          blockNumber,
+          timestamp: block ? block.timestamp : null,
+          chainName,
         };
       }
 
@@ -195,8 +197,8 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
 
       // Verify we got valid block data
       Object.values(blockData).forEach(data => {
-        expect(data.number).to.be.a('number');
-        expect(data.number).to.be.greaterThan(0);
+        expect(data.blockNumber).to.be.a("number");
+        expect(data.blockNumber).to.be.greaterThan(0);
       });
     });
 
@@ -247,12 +249,12 @@ describe("Cross-Chain Contract Deployment and Testing", function () {
         console.log(`  Chain ID: ${network.chainId}`);
         console.log(`  Network Name: ${network.name}`);
         console.log(`  Current Block: ${blockNumber}`);
-        console.log(`  Gas Price: ${ethers.utils.formatUnits(gasPrice, 'gwei')} gwei`);
+        console.log(`  Gas Price: ${ethers.utils.formatUnits(gasPrice, "gwei")} gwei`);
 
         // Basic assertions
-        expect(network.chainId).to.be.a('number');
+        expect(network.chainId).to.be.a("number");
         expect(blockNumber).to.be.greaterThan(0);
-        expect(gasPrice).to.be.a('object'); // BigNumber
+        expect(gasPrice).to.be.a("object"); // BigNumber
       }
     });
   });

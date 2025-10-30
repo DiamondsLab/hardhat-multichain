@@ -49,8 +49,8 @@ const config: HardhatUserConfig = {
         rpcUrl: process.env.BASE_RPC || "https://mainnet.base.org",
         chainId: 8453,
         blockNumber: 5000000,
-      }
-    }
+      },
+    },
   },
 
   networks: {
@@ -61,14 +61,14 @@ const config: HardhatUserConfig = {
         // Use deterministic accounts for testing
         mnemonic: "test test test test test test test test test test test junk",
         count: 20,
-        accountsBalance: "10000000000000000000000" // 10,000 ETH per account
-      }
-    }
+        accountsBalance: "10000000000000000000000", // 10,000 ETH per account
+      },
+    },
   },
 
   mocha: {
     timeout: 120000, // Longer timeout for multi-chain tests
-  }
+  },
 };
 
 export default config;

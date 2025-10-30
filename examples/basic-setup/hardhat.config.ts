@@ -9,15 +9,15 @@ const config: HardhatUserConfig = {
       ethereum: {
         rpcUrl: process.env.ETHEREUM_RPC || "https://mainnet.infura.io/v3/YOUR_PROJECT_ID",
         chainId: 1,
-        blockNumber: 18500000
+        blockNumber: 18500000,
       },
       polygon: {
         rpcUrl: process.env.POLYGON_RPC || "https://polygon-rpc.com",
         chainId: 137,
-        blockNumber: 50000000
-      }
-    }
-  }
+        blockNumber: 50000000,
+      },
+    },
+  },
 };
 
 export default config;

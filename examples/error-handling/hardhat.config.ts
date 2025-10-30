@@ -19,8 +19,8 @@ const config: HardhatUserConfig = {
       testnet: {
         rpcUrl: process.env.TESTNET_RPC || "https://sepolia.infura.io/v3/test",
         chainId: 11155111,
-      }
-    }
+      },
+    },
   },
 
   networks: {
@@ -29,14 +29,14 @@ const config: HardhatUserConfig = {
       accounts: {
         mnemonic: "test test test test test test test test test test test junk",
         count: 5,
-        accountsBalance: "10000000000000000000000"
-      }
-    }
+        accountsBalance: "10000000000000000000000",
+      },
+    },
   },
 
   mocha: {
     timeout: 60000,
-  }
+  },
 };
 
 export default config;

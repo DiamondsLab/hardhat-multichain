@@ -8,9 +8,9 @@ const config: HardhatUserConfig = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
-      }
-    }
+        runs: 200,
+      },
+    },
   },
 
   defaultNetwork: "hardhat",
@@ -36,8 +36,8 @@ const config: HardhatUserConfig = {
         rpcUrl: process.env.ARBITRUM_RPC || "https://arb1.arbitrum.io/rpc",
         chainId: 42161,
         blockNumber: 140000000,
-      }
-    }
+      },
+    },
   },
 
   networks: {
@@ -46,14 +46,14 @@ const config: HardhatUserConfig = {
       accounts: {
         mnemonic: "test test test test test test test test test test test junk",
         count: 10,
-        accountsBalance: "10000000000000000000000"
-      }
-    }
+        accountsBalance: "10000000000000000000000",
+      },
+    },
   },
 
   mocha: {
     timeout: 300000, // 5 minutes for complex cross-chain tests
-  }
+  },
 };
 
 export default config;

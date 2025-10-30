@@ -9,7 +9,6 @@ export function useEnvironment(fixtureProjectName: string): HardhatRuntimeEnviro
   beforeEach(() => {
     process.chdir(path.join(__dirname, "fixture-projects", fixtureProjectName));
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     hre = require("hardhat");
   });
 
