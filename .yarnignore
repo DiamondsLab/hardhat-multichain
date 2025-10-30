@@ -1,0 +1,51 @@
+# Source files - not needed in production
+test/
+*.test.ts
+*.spec.ts
+
+# Development files
+jest.config.js
+.eslintrc.js
+.prettierrc
+tslint.json
+tsconfig-test.json
+
+# Documentation and examples
+docs/
+examples/
+notes/
+CONTRIBUTING.md
+
+# Build artifacts that shouldn't be published
+coverage/
+.nyc_output/
+logs/
+custom-logs/
+flat/
+fixture-projects/
+
+# Development dependencies
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# Environment files
+.env*
+
+# Yarn files
+.yarn/
+.yarnrc.yml
+yarn-error.log
+yarn-debug.log
+
+# npm files
+npm-debug.log
+package-lock.json
