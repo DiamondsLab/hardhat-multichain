@@ -17,6 +17,7 @@ export default [
       "**/dist/**",
       "**/coverage/**",
       "**/.nyc_output/**",
+      "**/examples/**",
     ],
   },
 

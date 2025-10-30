@@ -169,16 +169,10 @@ class ChainManager {
                             isNetworkReady = true;
                             console.log(`✅ Hardhat node already running at ${providerUrl}`);
                         }
-                        catch (error) {
+                        catch (_f) {
                             console.log(`🛠️ Starting Hardhat node at ${providerUrl}...`);
                             // Start a hardhat node process
-                            const child = (0, child_process_1.fork)("node_modules/hardhat/internal/cli/cli.js", [
-                                "node",
-                                "--port",
-                                "8545",
-                                "--hostname",
-                                "127.0.0.1"
-                            ], {
+                            const child = (0, child_process_1.fork)("node_modules/hardhat/internal/cli/cli.js", ["node", "--port", "8545", "--hostname", "127.0.0.1"], {
                                 env: {
                                     ...process.env,
                                     HH_CHAIN_ID: "31337",
@@ -539,7 +533,7 @@ class ChainManager {
                 lastError = error;
                 // Only log if we're not in a test environment or if there's still time left
                 const timeRemaining = timeout - (Date.now() - startTime);
-                if (timeRemaining > 1000 && process.env.NODE_ENV !== 'test') {
+                if (timeRemaining > 1000 && process.env.NODE_ENV !== "test") {
                     console.log(`Waiting for network at ${url}...`);
                 }
                 await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying

@@ -145,8 +145,8 @@ describe("Advanced Multi-Chain Configuration", function () {
 
         // Block numbers should generally be different (unless by coincidence)
         // Mainly checking that we're getting real data
-        expect(blockInfos[chain1].blockNumber).to.be.a("number");
-        expect(blockInfos[chain2].blockNumber).to.be.a("number");
+        expect(blockInfos[chain1].number).to.be.a("number");
+        expect(blockInfos[chain2].number).to.be.a("number");
       }
     });
   });

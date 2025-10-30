@@ -25,7 +25,7 @@
     "removeComments": false,
     "preserveConstEnums": true
   },
-  "exclude": ["node_modules", "coverage", ".nyc_output", "dist", "test"],
+  "exclude": ["node_modules", "coverage", ".nyc_output", "dist", "test", "examples"],
   "include": [
     "./src/**/*.ts",
   ]

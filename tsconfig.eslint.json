@@ -1,18 +1,19 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false
+    "composite": false,
+    "types": ["node", "jest"]
   },
   "include": [
     "src/**/*",
     "test/**/*",
-    "examples/**/*",
     "fixture-projects/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "coverage",
-    ".nyc_output"
+    ".nyc_output",
+    "examples"
   ]
 }
