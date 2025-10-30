@@ -105,7 +105,8 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         const providers = await ChainManager.setupChains(["hardhat"], hre.userConfig);
 
         expect(providers.has("hardhat")).toBe(true);
-        expect(waitForNetworkSpy).toHaveBeenCalledWith("http://127.0.0.1:8545", 5000);
+        // Verify that waitForNetwork is called with a 2000ms timeout to check if already running
+        expect(waitForNetworkSpy).toHaveBeenCalledWith("http://127.0.0.1:8545", 2000);
 
         waitForNetworkSpy.mockRestore();
       });

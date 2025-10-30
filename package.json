@@ -6,11 +6,11 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GeniusVentures/hardhat-multichain.git"
+    "url": "https://github.com/diamondslab/hardhat-multichain.git"
   },
-  "homepage": "https://github.com/GeniusVentures/hardhat-multichain#readme",
+  "homepage": "https://github.com/diamondslab/hardhat-multichain#readme",
   "bugs": {
-    "url": "https://github.com/GeniusVentures/hardhat-multichain/issues"
+    "url": "https://github.com/diamondslab/hardhat-multichain/issues"
   },
   "keywords": [
     "ethereum",
@@ -79,5 +79,5 @@
   "dependencies": {
     "winston": "^3.8.0"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.10.3"
 }
