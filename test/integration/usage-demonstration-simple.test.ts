@@ -1,5 +1,6 @@
 import ChainManager from "../../src/chainManager";
 import { HardhatUserConfig } from "hardhat/types";
+import { expect } from "chai";
 
 /**
  * Simple Usage Demonstration Tests
@@ -39,10 +40,10 @@ describe("Simple Usage Demonstration", function () {
     };
 
     // Test configuration structure
-    expect(config.chainManager).toBeDefined();
-    expect(config.chainManager?.chains).toBeDefined();
-    expect(config.chainManager?.chains?.mainnet).toBeDefined();
-    expect(config.chainManager?.chains?.sepolia).toBeDefined();
+    expect(config.chainManager).to.exist;
+    expect(config.chainManager?.chains).to.exist;
+    expect(config.chainManager?.chains?.mainnet).to.exist;
+    expect(config.chainManager?.chains?.sepolia).to.exist;
 
     console.log("✅ Configuration patterns demonstrated");
   });
@@ -57,7 +58,7 @@ describe("Simple Usage Demonstration", function () {
     const chainArg = argv.find(arg => arg.includes("mainnet,sepolia"));
     const chains = chainArg ? chainArg.split(",") : [];
 
-    expect(chains).toEqual(["mainnet", "sepolia"]);
+    expect(chains).to.deep.equal(["mainnet", "sepolia"]);
 
     console.log(`📋 Parsed chains: ${chains.join(", ")}`);
     console.log("✅ Command line simulation demonstrated");
@@ -78,8 +79,8 @@ describe("Simple Usage Demonstration", function () {
     const mainnetRpc = envVars.MAINNET_RPC || "https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY";
     const sepoliaRpc = envVars.SEPOLIA_RPC || "https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY";
 
-    expect(typeof mainnetRpc).toBe("string");
-    expect(typeof sepoliaRpc).toBe("string");
+    expect(typeof mainnetRpc).to.equal("string");
+    expect(typeof sepoliaRpc).to.equal("string");
 
     console.log("✅ Environment variable configuration demonstrated");
     console.log(`  - MAINNET_RPC: ${mainnetRpc.substring(0, 40)}...`);
@@ -106,7 +107,7 @@ describe("Simple Usage Demonstration", function () {
       };
 
       // This would normally fail if we actually tried to connect
-      expect(config.chainManager?.chains?.invalidchain).toBeDefined();
+      expect(config.chainManager?.chains?.invalidchain).to.exist;
       console.log("✅ Error handling patterns demonstrated");
     } catch (error) {
       console.log("❌ Expected error caught:", error);
@@ -128,9 +129,9 @@ describe("Simple Usage Demonstration", function () {
       {} as Record<string, number>
     );
 
-    expect(portMapping.mainnet).toBe(8546);
-    expect(portMapping.sepolia).toBe(8547);
-    expect(portMapping.polygon).toBe(8548);
+    expect(portMapping.mainnet).to.equal(8546);
+    expect(portMapping.sepolia).to.equal(8547);
+    expect(portMapping.polygon).to.equal(8548);
 
     console.log("✅ Port management demonstrated");
     console.log(`  - Ports: ${JSON.stringify(portMapping)}`);
@@ -152,9 +153,9 @@ describe("Simple Usage Demonstration", function () {
       },
     };
 
-    expect(mockTask.name).toBe(taskName);
-    expect(mockTask.description).toBeDefined();
-    expect(typeof mockTask.action).toBe("function");
+    expect(mockTask.name).to.equal(taskName);
+    expect(mockTask.description).to.exist;
+    expect(typeof mockTask.action).to.equal("function");
 
     console.log("✅ Plugin integration demonstrated");
   });

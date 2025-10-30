@@ -8,6 +8,7 @@ import ChainManager, {
 // Don't import the full plugin here to avoid hardhat context issues
 // import "../src/index"; // Ensure the plugin is loaded
 import { JsonRpcProvider } from "@ethersproject/providers";
+import { jest } from "@jest/globals";
 
 let hre: HardhatRuntimeEnvironment;
 
@@ -591,7 +592,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           on: jest.fn().mockImplementation((event, callback) => {
             if (event === "exit") {
               // Immediately call the callback to simulate clean exit
-              setTimeout(callback, 10);
+              setTimeout(callback as TimerHandler, 10);
             }
           }),
         };
