@@ -70,3 +70,6 @@ notes/
 
 # notes for scratch docs
 notes/
+
+# dist folder for built files
+dist/
