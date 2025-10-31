@@ -73,3 +73,6 @@ notes/
 
 # dist folder for built files
 dist/
+
+# Yarn v2+
+.yarn/
