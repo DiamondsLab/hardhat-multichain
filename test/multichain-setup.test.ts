@@ -1,5 +1,6 @@
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChildProcess } from "child_process";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 import ChainManager, {
   ChainConfigError,
   NetworkConnectionError,
@@ -105,7 +106,6 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
         const providers = await ChainManager.setupChains(["hardhat"], hre.userConfig);
 
         expect(providers.has("hardhat")).toBe(true);
-        // Verify that waitForNetwork is called with a 2000ms timeout to check if already running
         expect(waitForNetworkSpy).toHaveBeenCalledWith("http://127.0.0.1:8545", 2000);
 
         waitForNetworkSpy.mockRestore();

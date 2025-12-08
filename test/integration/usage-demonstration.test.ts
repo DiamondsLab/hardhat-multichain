@@ -1,10 +1,42 @@
 import { expect } from "chai";
-import ChainManager from "../../src/chainManager";
+import * as fs from 'fs';
 import { HardhatUserConfig } from "hardhat/types";
-import * as dotenv from "dotenv";
+import * as path from 'path';
+import ChainManager from "../../src/chainManager";
 
-// Load environment variables
-dotenv.config();
+
+// Load environment variables from the package root or monorepo root
+function loadEnvFile(filePath: string) {
+  try {
+    if (fs.existsSync(filePath)) {
+      const envContent = fs.readFileSync(filePath, 'utf8');
+      const lines = envContent.split('\n');
+      
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine && !trimmedLine.startsWith('#')) {
+          const [key, ...valueParts] = trimmedLine.split('=');
+          if (key && valueParts.length > 0) {
+            const value = valueParts.join('=').trim();
+            process.env[key.trim()] = value;
+          }
+        }
+      }
+      return true;
+    }
+  } catch (error) {
+    // Ignore errors
+  }
+  return false;
+}
+
+// Try to load from package root first, then monorepo root
+const packageEnvPath = path.resolve(__dirname, '../../.env');
+const monorepoEnvPath = path.resolve(__dirname, '../../../../.env');
+
+if (!loadEnvFile(packageEnvPath)) {
+  loadEnvFile(monorepoEnvPath);
+}
 
 const {
   MAINNET_RPC,

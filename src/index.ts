@@ -1,13 +1,13 @@
-import { extendEnvironment, extendConfig, task } from "hardhat/config";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { JsonRpcProvider } from "ethers";
+import { extendConfig, extendEnvironment, task } from "hardhat/config";
 import { lazyObject } from "hardhat/plugins";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 import ChainManager, {
   ChainConfigError,
   NetworkConnectionError,
   ProcessCleanupError,
 } from "./chainManager";
-import { MultiChainProviders, MultiChainConfig, TaskArgs } from "./type-extensions"; // Import MultiChainConfig
+import { MultiChainConfig, MultiChainProviders, TaskArgs } from "./type-extensions"; // Import MultiChainConfig
 
 export function getProvider(networkName: string): JsonRpcProvider {
   const provider = ChainManager.getProvider(networkName);
@@ -26,7 +26,7 @@ export function getMultichainProviders(): MultiChainProviders {
 // Export error classes for external use
 export { ChainConfigError, NetworkConnectionError, ProcessCleanupError };
 
-export { default as multichain } from "./chainManager";
+  export { default as multichain } from "./chainManager";
 
 extendEnvironment((hre: HardhatRuntimeEnvironment) => {
   hre.multichain = lazyObject(() => {
@@ -70,7 +70,7 @@ task("test-multichain", "Launches multiple forked Hardhat networks")
     try {
       console.log(`🔄 Launching forks for: ${chainNames.join(", ")}`);
       await ChainManager.setupChains(chainNames, hre.userConfig, logsDir ? logsDir : undefined);
-      console.log("✅ Forked chains launched successfully.");
+      console.log("✅ Forked chains launched successfully."); 
 
       // Register cleanup handlers only after successful setup
       if (!cleanupRegistered) {
@@ -128,4 +128,5 @@ task("test-multichain", "Launches multiple forked Hardhat networks")
     }
   });
 
-export {};
+export { };
+

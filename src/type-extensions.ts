@@ -1,6 +1,6 @@
+import { JsonRpcProvider } from "ethers";
 import "hardhat/types/config";
 import "hardhat/types/runtime";
-import { JsonRpcProvider } from "@ethersproject/providers";
 import ChainManager from "./chainManager";
 
 export interface ChainConfig {

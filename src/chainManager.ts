@@ -1,8 +1,8 @@
-import { JsonRpcProvider } from "@ethersproject/providers"; // Use 'ethers' for v6, '@ethersproject/providers' for v5
-import { fork, ChildProcess } from "child_process";
+import { ChildProcess, fork } from "child_process";
+import { JsonRpcProvider } from "ethers"; // Use 'ethers' for v6
 import { HardhatUserConfig } from "hardhat/types";
-import { createLogger, format, transports, Logger } from "winston";
-import { ChainConfig, MultiChainProviders, ChainStatus, ValidationResult } from "./type-extensions";
+import { createLogger, format, Logger, transports } from "winston";
+import { ChainConfig, ChainStatus, MultiChainProviders, ValidationResult } from "./type-extensions";
 
 /**
  * Error thrown when chain configuration is invalid or missing
