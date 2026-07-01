@@ -8,7 +8,7 @@ import ChainManager, {
 } from "../src/chainManager";
 // Don't import the full plugin here to avoid hardhat context issues
 // import "../src/index"; // Ensure the plugin is loaded
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { JsonRpcProvider } from "ethers";
 import { jest } from "@jest/globals";
 
 let hre: HardhatRuntimeEnvironment;
