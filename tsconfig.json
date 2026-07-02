@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "commonjs",
-    "lib": ["ES2018", "ES2018.Promise", "DOM"],
+    "module": "node16",
+    "lib": [
+      "ES2018",
+      "ES2018.Promise",
+      "DOM"
+    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -20,12 +24,21 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "types": ["node"],
+    "moduleResolution": "node16",
+    "types": [
+      "node"
+    ],
     "removeComments": false,
     "preserveConstEnums": true
   },
-  "exclude": ["node_modules", "coverage", ".nyc_output", "dist", "test", "examples"],
+  "exclude": [
+    "node_modules",
+    "coverage",
+    ".nyc_output",
+    "dist",
+    "test",
+    "examples"
+  ],
   "include": [
     "./src/**/*.ts",
   ]
