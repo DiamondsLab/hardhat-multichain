@@ -1,12 +1,12 @@
 {
-  "name": "hardhat-multichain",
-  "version": "1.0.6",
+  "name": "@diamondslab/hardhat-multichain",
+  "version": "1.1.0",
   "description": "A Hardhat plugin for launching multiple forked blockchains",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/diamondslab/hardhat-multichain.git"
+    "url": "git+https://github.com/DiamondsLab/hardhat-multichain.git"
   },
   "homepage": "https://github.com/diamondslab/hardhat-multichain#readme",
   "bugs": {
@@ -31,15 +31,16 @@
     "lint:fix": "eslint 'src/**/*.ts' 'test/**/*.ts' --fix",
     "format": "prettier --write 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "format:check": "prettier --check 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
-    "prepublishOnly": "npm run clean && npm run build && npm run test",
+    "prepublishOnly": "yarn clean && yarn build && yarn test",
     "clean": "rm -rf dist coverage .nyc_output",
     "prepare": "npm run build",
-    "prepack": "npm run build"
+    "prepack": "yarn build"
   },
   "files": [
     "dist/",
-    "LICENSE",
-    "README.md"
+    "/LICENSE",
+    "/README.md",
+    "/CHANGELOG.md"
   ],
   "devDependencies": {
     "@eslint/js": "^9.30.1",
@@ -77,5 +78,23 @@
   "dependencies": {
     "winston": "^3.8.0"
   },
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.10.3",
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./dist/*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./package.json": "./package.json"
+  }
 }

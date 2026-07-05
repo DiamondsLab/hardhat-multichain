@@ -9,7 +9,7 @@
     ],
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
