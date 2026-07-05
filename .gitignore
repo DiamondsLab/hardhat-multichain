@@ -76,3 +76,6 @@ dist/
 
 # Yarn v2+
 .yarn/
+# runtime logs
+custom-logs/
+logs/
