@@ -8,7 +8,7 @@
       "DOM"
     ],
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "sourceMap": false,
     "outDir": "./dist",
     "strict": true,
