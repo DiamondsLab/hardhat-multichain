@@ -1,71 +1,55 @@
-# Contributing to Hardhat-Multichain
+# Contributing to `@diamondslab/hardhat-multichain`
 
-Thank you for your interest in contributing to hardhat-multichain! This document provides guidelines for contributing to the project.
+Thanks for your interest in contributing! This guide covers how to propose changes.
 
-## 🚀 Getting Started
+## Getting started
 
-### Prerequisites
+This package is developed with **Yarn 4** (`yarn@4.10.3`) and Node.js ≥ 18.
 
-- Node.js 16.x, 18.x, or 20.x
-- npm or yarn
-- Git
-
-### Development Setup
-
-1. Fork the repository
-2. Clone your fork:
+1. Fork the repository and clone your fork:
 
    ```bash
    git clone https://github.com/your-username/hardhat-multichain.git
    cd hardhat-multichain
    ```
 
-3. Install dependencies:
+2. Install, build, and test:
 
    ```bash
-   npm install
+   yarn install      # install dependencies
+   yarn build        # compile TypeScript (tsc)
+   yarn test         # run the test suite (jest)
+   yarn lint         # eslint
+   yarn lint:fix     # eslint --fix
+   yarn format       # prettier --write
+   yarn format:check # prettier --check
    ```
 
-4. Build the project:
+Other useful scripts: `yarn watch` (tsc watch mode), `yarn test:watch`,
+`yarn test:coverage`.
 
-   ```bash
-   npm run build
-   ```
+## Workflow
 
-5. Run tests:
+1. **Fork** the repository and create a feature branch:
+   `git checkout -b feature/your-change`.
+2. Make your change with tests where appropriate; keep `yarn build`, `yarn test`, and
+   `yarn lint` green.
+3. Update `CHANGELOG.md` under the `[Unreleased]` section (Keep a Changelog format).
+4. **Commit** using [Conventional Commits](https://www.conventionalcommits.org/) — types
+   map to SemVer bumps (e.g. `feat:` → minor, `fix:` → patch).
+5. Push and open a **Pull Request** against `main`; fill in the PR template.
 
-   ```bash
-   npm test
-   ```
+## Versioning
 
-## 📝 Development Workflow
+This project follows **Semantic Versioning** and **Keep a Changelog**. Releases (version
+bump + tag) are cut by the maintainers; contributors only add entries under
+`[Unreleased]`.
 
-### Code Style
+## Reporting bugs & requesting features
 
-We use ESLint and Prettier for code formatting. Before submitting a PR:
-
-```bash
-npm run lint        # Check for linting errors
-npm run lint:fix    # Fix auto-fixable linting errors
-npm run format      # Format code with Prettier
-```
-
-### Running Tests
-
-```bash
-npm test                    # Run all tests
-npm run test:watch         # Run tests in watch mode
-npm run test:coverage      # Generate coverage report
-```
-
-### Building
-
-```bash
-npm run build      # Build TypeScript
-npm run watch      # Watch mode for development
-```
-
-## 🐛 Bug Reports
+Open an issue using the appropriate template under
+[`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/). For **security** issues, do **not**
+open a public issue — follow [`SECURITY.md`](SECURITY.md).
 
 When filing a bug report, please include:
 
@@ -74,41 +58,7 @@ When filing a bug report, please include:
 3. **Expected behavior**: What you expected to happen
 4. **Actual behavior**: What actually happened
 5. **Error messages**: Full error messages and stack traces
-6. **Configuration**: Your hardhat.config.ts and any relevant environment variables
-
-### Bug Report Template
-
-```markdown
-**Environment:**
-- Node.js version: 
-- Operating System: 
-- Hardhat version: 
-- Plugin version: 
-
-**Steps to Reproduce:**
-1. 
-2. 
-3. 
-
-**Expected Behavior:**
-
-
-**Actual Behavior:**
-
-
-**Error Messages:**
-
-```text
-[Paste error messages here]
-```
-
-**Configuration:**
-
-```typescript
-// Your hardhat.config.ts
-```
-
-## ✨ Feature Requests
+6. **Configuration**: Your `hardhat.config.ts` and any relevant environment variables
 
 For feature requests, please:
 
@@ -117,81 +67,30 @@ For feature requests, please:
 3. Provide examples of how it would be used
 4. Consider if it fits with the project's goals
 
-## 🔧 Pull Requests
+## Pull request expectations
 
-### Before Submitting
-
-1. **Fork and create a branch**: Create a feature branch from `main`
-2. **Write tests**: Ensure new features have appropriate test coverage
-3. **Update documentation**: Update README.md and JSDoc comments as needed
-4. **Follow code style**: Run linting and formatting tools
-5. **Test thoroughly**: Ensure all tests pass
-
-### Pull Request Process
-
-1. **Title**: Use a clear, descriptive title
+1. **Title**: Use a clear, descriptive Conventional Commit title
 2. **Description**: Explain what the PR does and why
-3. **Breaking changes**: Clearly mark any breaking changes
-4. **Tests**: Ensure all tests pass
-5. **Documentation**: Update relevant documentation
+3. **Breaking changes**: Clearly mark any breaking changes and migration steps
+4. **Tests**: Ensure new features have appropriate test coverage and all tests pass
+5. **Documentation**: Update README.md and JSDoc comments as needed
 
-### PR Template
+## Testing guidelines
 
-```markdown
-## Description
-Brief description of changes
-
-## Type of Change
-- [ ] Bug fix (non-breaking change that fixes an issue)
-- [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Documentation update
-
-## Testing
-- [ ] Tests pass locally
-- [ ] Added tests for new functionality
-- [ ] Updated existing tests as needed
-
-## Documentation
-- [ ] Updated README.md
-- [ ] Updated JSDoc comments
-- [ ] Added examples if applicable
-
-## Breaking Changes
-List any breaking changes and migration steps
-
-## 📚 Documentation
-
-### Code Documentation
-
-- Use JSDoc comments for all public APIs
-- Include examples in documentation
-- Keep documentation up to date with code changes
-
-### README Updates
-
-When updating the README:
-
-- Keep it concise but comprehensive
-- Include working examples
-- Update table of contents if needed
-
-## 🧪 Testing Guidelines
-
-### Test Categories
+### Test categories
 
 1. **Unit Tests**: Test individual functions and classes
 2. **Integration Tests**: Test component interactions
 3. **End-to-End Tests**: Test complete workflows
 
-### Writing Tests
+### Writing tests
 
 - Use descriptive test names
 - Test both success and failure cases
 - Use appropriate setup/teardown
 - Mock external dependencies appropriately
 
-### Test Structure
+### Test structure
 
 ```typescript
 describe("Feature Name", function () {
@@ -215,58 +114,39 @@ describe("Feature Name", function () {
 });
 ```
 
-## 🎯 Code Standards
+## Code standards
 
-### TypeScript Guidelines
+### TypeScript guidelines
 
 - Use strict TypeScript configuration
 - Avoid `any` types when possible
 - Provide explicit return types for public methods
 - Use meaningful variable and function names
 
-### Error Handling
+### Error handling
 
 - Create custom error classes for specific error types
-- Provide meaningful error messages
-- Include context in error messages
+- Provide meaningful error messages and include context
 - Use async/await with proper try-catch blocks
 
-### Performance Considerations
+### Performance considerations
 
 - Avoid blocking operations in the main thread
 - Use appropriate timeouts for network operations
 - Clean up resources properly
 - Consider memory usage for long-running processes
 
-## 🚦 Release Process
+### Documentation
 
-### Version Numbering
+- Use JSDoc comments for all public APIs
+- Include examples in documentation
+- Keep the README concise but comprehensive, with working examples
 
-We follow [Semantic Versioning](https://semver.org/):
-
-- **MAJOR**: Breaking changes
-- **MINOR**: New features (backward compatible)
-- **PATCH**: Bug fixes (backward compatible)
-
-### Release Checklist
-
-1. Update version in package.json
-2. Update CHANGELOG.md
-3. Create release notes
-4. Tag the release
-5. Publish to npm
-
-## 📞 Getting Help
-
-- **Issues**: Use GitHub issues for bugs and feature requests
-- **Discussions**: Use GitHub discussions for questions and ideas
-- **Discord**: Join our Discord server for real-time chat
-
-## 📋 Project Structure
+## Project structure
 
 ```bash
 src/
-├── chainManager.ts      # Core chain management
+├── chainManager.ts     # Core chain management
 ├── index.ts            # Main plugin entry point
 └── type-extensions.ts  # TypeScript type definitions
 
@@ -282,23 +162,16 @@ examples/
 └── cross-chain/       # Cross-chain examples
 
 docs/
-├── api.md            # API documentation
-├── examples.md       # Usage examples
+├── api.md             # API documentation
+├── examples.md        # Usage examples
 └── troubleshooting.md # Common issues
 ```
 
-## 🏆 Recognition
+## Code of Conduct
 
-Contributors will be recognized in:
+By participating you agree to abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-- README.md contributors section
-- Release notes
-- Special mentions for significant contributions
+## License
 
-## 📜 License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
-
-## ❤️ Thank You
-
-Thank you for contributing to hardhat-multichain! Your efforts help make multi-chain development easier for everyone.
+By contributing, you agree that your contributions will be licensed under the MIT
+License.
