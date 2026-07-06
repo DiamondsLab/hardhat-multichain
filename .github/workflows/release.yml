@@ -38,7 +38,7 @@ jobs:
         run: corepack enable yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --no-immutable # no standalone lockfile; CI forces immutable by default
 
       - name: Build
         run: yarn build
