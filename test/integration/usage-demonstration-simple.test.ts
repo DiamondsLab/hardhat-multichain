@@ -121,13 +121,10 @@ describe("Simple Usage Demonstration", function () {
     const basePort = 8545;
     const chains = ["mainnet", "sepolia", "polygon"];
 
-    const portMapping = chains.reduce(
-      (acc, chain, index) => {
-        acc[chain] = basePort + index + 1;
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+    const portMapping = chains.reduce((acc, chain, index) => {
+      acc[chain] = basePort + index + 1;
+      return acc;
+    }, {} as Record<string, number>);
 
     expect(portMapping.mainnet).to.equal(8546);
     expect(portMapping.sepolia).to.equal(8547);

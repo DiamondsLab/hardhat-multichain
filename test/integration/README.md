@@ -1,13 +1,13 @@
 # Hardhat Multichain Integration Examples
 
-This directory contains examples and integration tests demonstrating how to use the hardhat-multichain plugin in your projects.
+This directory contains examples and integration tests demonstrating how to use the `@diamondslab/hardhat-multichain` plugin in your projects.
 
 ## Quick Start
 
 1. **Install the plugin:**
 
 ```bash
-npm install hardhat-multichain
+npm install @diamondslab/hardhat-multichain
 ```
 
 2. **Configure your `.env` file:**
@@ -27,7 +27,7 @@ SEPOLIA_MOCK_CHAIN_ID=11169111
 import * as dotenv from 'dotenv';
 import { HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
-import 'hardhat-multichain';
+import '@diamondslab/hardhat-multichain';
 
 dotenv.config();
 
@@ -66,7 +66,7 @@ export default config;
 ```typescript
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { multichain } from 'hardhat-multichain';
+import { multichain } from '@diamondslab/hardhat-multichain';
 
 describe('NFT Factory Tests', function () {
   // Get network providers based on command line args

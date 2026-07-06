@@ -26,7 +26,7 @@ export function getMultichainProviders(): MultiChainProviders {
 // Export error classes for external use
 export { ChainConfigError, NetworkConnectionError, ProcessCleanupError };
 
-  export { default as multichain } from "./chainManager";
+export { default as multichain } from "./chainManager";
 
 extendEnvironment((hre: HardhatRuntimeEnvironment) => {
   hre.multichain = lazyObject(() => {
@@ -70,7 +70,7 @@ task("test-multichain", "Launches multiple forked Hardhat networks")
     try {
       console.log(`🔄 Launching forks for: ${chainNames.join(", ")}`);
       await ChainManager.setupChains(chainNames, hre.userConfig, logsDir ? logsDir : undefined);
-      console.log("✅ Forked chains launched successfully."); 
+      console.log("✅ Forked chains launched successfully.");
 
       // Register cleanup handlers only after successful setup
       if (!cleanupRegistered) {
@@ -128,5 +128,4 @@ task("test-multichain", "Launches multiple forked Hardhat networks")
     }
   });
 
-export { };
-
+export {};

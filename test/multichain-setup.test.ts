@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChildProcess } from "child_process";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import ChainManager, {
@@ -17,7 +16,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
   jest.setTimeout(60000); // Increase timeout for network operations
 
   beforeEach(() => {
-    hre = {
+    hre = ({
       network: { name: "" },
       ethers: { provider: {} },
       run: jest.fn(),
@@ -32,7 +31,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
           },
         },
       },
-    } as unknown as HardhatRuntimeEnvironment;
+    } as unknown) as HardhatRuntimeEnvironment;
   });
 
   afterEach(async () => {
@@ -76,7 +75,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should handle missing RPC configuration", async () => {
-        const configWithoutRpc = {
+        const configWithoutRpc = ({
           chainManager: {
             chains: {
               testchain: {
@@ -85,7 +84,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"]; // Better typing
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"]; // Better typing
 
         await expect(ChainManager.setupChains(["testchain"], configWithoutRpc)).rejects.toThrow(
           ChainConfigError
@@ -232,7 +231,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should handle chain names with numbers", async () => {
-        const configWithChain = {
+        const configWithChain = ({
           chainManager: {
             chains: {
               chain123: {
@@ -242,7 +241,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
         const validateNetworkSpy = jest
@@ -260,7 +259,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
 
     describe("RPC URL validation", () => {
       it("should handle invalid URL protocols", async () => {
-        const configWithInvalidUrl = {
+        const configWithInvalidUrl = ({
           chainManager: {
             chains: {
               invalidchain: {
@@ -270,7 +269,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         await expect(
           ChainManager.setupChains(["invalidchain"], configWithInvalidUrl)
@@ -278,11 +277,11 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should handle missing chain configuration", async () => {
-        const configWithMissingChain = {
+        const configWithMissingChain = ({
           chainManager: {
             chains: {},
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         await expect(
           ChainManager.setupChains(["missingchain"], configWithMissingChain)
@@ -290,7 +289,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should handle missing chainId and provide default", async () => {
-        const configWithoutChainId = {
+        const configWithoutChainId = ({
           chainManager: {
             chains: {
               testchain: {
@@ -300,7 +299,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
         const validateNetworkSpy = jest
@@ -320,7 +319,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
 
     describe("Port validation", () => {
       it("should handle port configuration but use dynamic port allocation", async () => {
-        const configWithInvalidPort = {
+        const configWithInvalidPort = ({
           chainManager: {
             chains: {
               testchain: {
@@ -331,7 +330,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
         const validateNetworkSpy = jest
@@ -349,7 +348,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
       });
 
       it("should ignore port configuration (not implemented)", async () => {
-        const configWithNegativePort = {
+        const configWithNegativePort = ({
           chainManager: {
             chains: {
               testchain: {
@@ -360,7 +359,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
               },
             },
           },
-        } as unknown as HardhatRuntimeEnvironment["userConfig"];
+        } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
         // Mock network validation and waitForNetwork to avoid timeouts
         const validateNetworkSpy = jest
@@ -381,7 +380,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
 
   describe("Process Management", () => {
     it("should handle fork process creation failure", async () => {
-      const configWithValidChain = {
+      const configWithValidChain = ({
         chainManager: {
           chains: {
             testchain: {
@@ -391,7 +390,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
             },
           },
         },
-      } as unknown as HardhatRuntimeEnvironment["userConfig"];
+      } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
       // Mock network validation and waitForNetwork to pass without actually creating processes
       const validateNetworkSpy = jest
@@ -411,11 +410,11 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
     it("should handle process cleanup with active processes", async () => {
       // Create a mock process and add it to the processes map
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const mockProcess = {
+      const mockProcess = ({
         pid: 12345,
         kill: jest.fn(),
         on: jest.fn(),
-      } as unknown as ChildProcess;
+      } as unknown) as ChildProcess;
 
       // Access the private processes map through setupChains to add a mock process
       const providers = ChainManager.getProviders();
@@ -478,9 +477,9 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
     });
 
     it("should handle missing chains config", async () => {
-      const configWithoutChains = {
+      const configWithoutChains = ({
         chainManager: {},
-      } as unknown as HardhatRuntimeEnvironment["userConfig"];
+      } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
       await expect(ChainManager.setupChains(["testchain"], configWithoutChains)).rejects.toThrow(
         ChainConfigError
@@ -493,7 +492,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
     });
 
     it("should handle multiple chains with one invalid", async () => {
-      const configWithMixedChains = {
+      const configWithMixedChains = ({
         chainManager: {
           chains: {
             validchain: {
@@ -507,7 +506,7 @@ describe("Hardhat Plugin for Multi-Fork Blockchain Networks", () => {
             },
           },
         },
-      } as unknown as HardhatRuntimeEnvironment["userConfig"];
+      } as unknown) as HardhatRuntimeEnvironment["userConfig"];
 
       await expect(
         ChainManager.setupChains(["validchain", "invalidchain"], configWithMixedChains)

@@ -1,10 +1,42 @@
-# Hardhat-Multichain
+# @diamondslab/hardhat-multichain
 
-[![npm version](https://badge.fury.io/js/hardhat-multichain.svg)](https://badge.fury.io/js/hardhat-multichain)
-[![Build Status](https://github.com/your-org/hardhat-multichain/workflows/CI/badge.svg)](https://github.com/your-org/hardhat-multichain/actions)
-[![Coverage Status](https://coveralls.io/repos/github/your-org/hardhat-multichain/badge.svg?branch=main)](https://coveralls.io/github/your-org/hardhat-multichain?branch=main)
+[![npm version](https://img.shields.io/npm/v/@diamondslab/hardhat-multichain.svg)](https://www.npmjs.com/package/@diamondslab/hardhat-multichain)
+[![Build Status](https://github.com/DiamondsLab/hardhat-multichain/workflows/CI/badge.svg)](https://github.com/DiamondsLab/hardhat-multichain/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A professional Hardhat plugin for launching and managing multiple forked blockchain networks simultaneously. Perfect for cross-chain development, testing, and multi-network deployments.
+
+## Migrating from `hardhat-multichain`
+
+This package was previously published as the unscoped `hardhat-multichain` (latest: `1.0.6`). Starting with **v1.1.0** it is published as **`@diamondslab/hardhat-multichain`**. The unscoped package is **deprecated** and will receive **no further releases**.
+
+To migrate:
+
+```bash
+# npm
+npm uninstall hardhat-multichain && npm install @diamondslab/hardhat-multichain
+
+# yarn
+yarn remove hardhat-multichain && yarn add @diamondslab/hardhat-multichain
+```
+
+Then update the plugin import in your `hardhat.config.ts`:
+
+```diff
+-import "hardhat-multichain";
++import "@diamondslab/hardhat-multichain";
+```
+
+And any deep or named imports:
+
+```diff
+-import { getProvider, multichain } from "hardhat-multichain";
+-import ChainManager from "hardhat-multichain/dist/src/chainManager";
++import { getProvider, multichain } from "@diamondslab/hardhat-multichain";
++import ChainManager from "@diamondslab/hardhat-multichain/dist/chainManager";
+```
+
+Note: the compiled output is now flat under `dist/` (no `dist/src/`), and the package defines an `exports` map (`.`, `./dist/*`, `./package.json`). See [CHANGELOG.md](CHANGELOG.md) for the full list of packaging changes in 1.1.0.
 
 ## 🚀 Features
 
@@ -17,16 +49,22 @@ A professional Hardhat plugin for launching and managing multiple forked blockch
 - **TypeScript Support**: Full TypeScript support with comprehensive type definitions
 - **Testing Integration**: Seamless integration with Hardhat testing framework
 
+## 📋 Prerequisites
+
+- **Node.js ≥ 18** (Node 16 is end-of-life and no longer supported)
+- **Yarn ≥ 4** (for developing this package; consumers may use any package manager)
+- Hardhat `^2.22.1` and ethers `^6.0.0` as peer dependencies
+
 ## 📦 Installation
 
 ```bash
-npm install hardhat-multichain
+npm install @diamondslab/hardhat-multichain
 ```
 
 Or with Yarn:
 
 ```bash
-yarn add hardhat-multichain
+yarn add @diamondslab/hardhat-multichain
 ```
 
 ## 🛠️ Setup
@@ -34,7 +72,7 @@ yarn add hardhat-multichain
 ### 1. Import the plugin in your `hardhat.config.ts`
 
 ```typescript
-import "hardhat-multichain";
+import "@diamondslab/hardhat-multichain";
 
 const config: HardhatUserConfig = {
   // Your existing config...
@@ -98,8 +136,8 @@ npx hardhat test-multichain --chains ethereum,polygon --logs ./logs
 ### Programmatic Usage
 
 ```typescript
-import { getProvider, getMultichainProviders } from "hardhat-multichain";
-import ChainManager from "hardhat-multichain/dist/src/chainManager";
+import { getProvider, getMultichainProviders } from "@diamondslab/hardhat-multichain";
+import ChainManager from "@diamondslab/hardhat-multichain/dist/chainManager";
 
 // Get a specific provider
 const ethereumProvider = getProvider("ethereum");
@@ -123,7 +161,7 @@ await ChainManager.cleanup();
 
 ```typescript
 import { expect } from "chai";
-import { getProvider } from "hardhat-multichain";
+import { getProvider } from "@diamondslab/hardhat-multichain";
 
 describe("Cross-chain Contract Tests", function () {
   let ethereumProvider: JsonRpcProvider;
@@ -139,7 +177,7 @@ describe("Cross-chain Contract Tests", function () {
     // Deploy to Ethereum
     const ethereumFactory = new ethers.ContractFactory(abi, bytecode, ethereumProvider.getSigner());
     const ethereumContract = await ethereumFactory.deploy();
-    
+
     // Deploy to Polygon
     const polygonFactory = new ethers.ContractFactory(abi, bytecode, polygonProvider.getSigner());
     const polygonContract = await polygonFactory.deploy();
@@ -201,7 +239,7 @@ The core class for managing blockchain networks.
 The plugin includes comprehensive error handling:
 
 ```typescript
-import { ChainConfigError, NetworkConnectionError } from "hardhat-multichain";
+import { ChainConfigError, NetworkConnectionError } from "@diamondslab/hardhat-multichain";
 
 try {
   await ChainManager.setupChains(["ethereum"], config);
@@ -248,24 +286,17 @@ This creates separate log files for each chain:
 
 This project maintains high code quality standards with comprehensive testing and coverage reporting.
 
+> **Installing from a git URL?** As of 1.1.0 the built `dist/` output is no longer committed to git. Git-URL installs must build the package (`yarn install && yarn build`); installs from the npm registry tarball are unaffected.
+
 ### Test Suite
 
 The project includes a robust test suite with **53 test cases** covering:
 
 - **Chain Manager Core Functionality**: Network setup, provider management, validation
-- **Error Handling**: Configuration errors, network failures, cleanup scenarios  
+- **Error Handling**: Configuration errors, network failures, cleanup scenarios
 - **Configuration Validation**: Parameter checking, environment variable handling
 - **Process Management**: Fork lifecycle, port management, resource cleanup
 - **Provider Interface**: Network switching, status monitoring, connection management
-
-### Coverage Metrics
-
-Current test coverage metrics demonstrate excellent code coverage:
-
-- **Statements**: 75%
-- **Branches**: 66.86%  
-- **Functions**: 66.66%
-- **Lines**: 76.09%
 
 ### Running Tests
 
@@ -285,7 +316,7 @@ yarn test:watch
 ```bash
 # Development workflow
 yarn build          # Compile TypeScript
-yarn test           # Run test suite
+yarn test           # Run test suite (jest)
 yarn test:coverage  # Generate coverage report
 yarn lint           # Check code style
 yarn lint:fix       # Fix linting issues
@@ -309,22 +340,11 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ### Development Setup
 
 1. Clone the repository
-2. Install dependencies: `yarn install` (from workspace root)
+2. Install dependencies: `yarn install`
 3. Build the project: `yarn build`
 4. Run tests: `yarn test`
 5. Generate coverage: `yarn test:coverage`
 6. Run linting: `yarn lint`
-
-### Contributing Guidelines
-
-When contributing to this project:
-
-1. **Ensure all tests pass**: `yarn test`
-2. **Maintain or improve coverage**: `yarn test:coverage`
-3. **Follow code style guidelines**: `yarn lint`
-4. **Format your code**: `yarn format`
-5. **Update documentation as needed**
-6. **Add tests for new features**
 
 ### Quality Standards
 
@@ -376,8 +396,8 @@ Error: Missing required rpcUrl for ethereum
 ### Getting Help
 
 - 📖 [Documentation](docs/)
-- 🐛 [Issue Tracker](https://github.com/your-org/hardhat-multichain/issues)
-- 💬 [Discussions](https://github.com/your-org/hardhat-multichain/discussions)
+- 🐛 [Issue Tracker](https://github.com/DiamondsLab/hardhat-multichain/issues)
+- 💬 [Discussions](https://github.com/DiamondsLab/hardhat-multichain/discussions)
 
 #### Parameters
 
@@ -387,8 +407,9 @@ Example:
 
 ```bash
 npx hardhat test-multichain --chains "sepolia,amoy"
+```
 
-#### Additional Parameters:
+#### Additional Parameters
 
 - `--logs` (string): Specifies the directory to save the logs for each network.
 
@@ -483,14 +504,6 @@ Example:
   },
 ```
 
-## Usage
-
-After installing and configuring, simply run:
-
-```bash
-npx hardhat test-multichain --chains sepolia,amoy
-```
-
 ## Code Examples
 
 ### Using available Networks
@@ -505,4 +518,4 @@ This only changes the Ethers provider within the current scope.
 
 ### Looping through Networks
 
-- see the test/multichain-plugin.test.ts in the [boilerplate and exampels repo](https://github.com/GeniusVentures/hardhat-multichain-boilerplate)
+See [test/integration/README.md](test/integration/README.md) for a complete example of looping tests over each configured network.

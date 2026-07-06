@@ -45,7 +45,6 @@ flat*
 scripts
 
 # Notes and temporary files
-notes/
 
 # Optional npm cache directory
 .npm
@@ -68,11 +67,16 @@ notes/
 !.yarn/sdks
 !.yarn/versions
 
-# notes for scratch docs
-notes/
 
 # dist folder for built files
 dist/
 
 # Yarn v2+
 .yarn/
+# runtime logs
+custom-logs/
+logs/
+
+# notes/: scratch stays local, but the release runbook is tracked
+notes/*
+!notes/RELEASE_RUNBOOK.md

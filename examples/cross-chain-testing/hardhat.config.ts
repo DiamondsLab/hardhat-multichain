@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomiclabs/hardhat-ethers";
-import "hardhat-multichain";
+import "@diamondslab/hardhat-multichain";
 
 const config: HardhatUserConfig = {
   solidity: {
