@@ -48,7 +48,7 @@ yarn build
 npm pack --dry-run
 ```
 
-- [ ] Manifest matches the **M2-E2 baseline: 9 files** (~15 kB): `dist/**` (no `.map`),
+- [ ] Manifest matches the **M2-E2 baseline: 10 files** (~17 kB, incl. CHANGELOG): `dist/**` (no `.map`),
       `LICENSE`, `README.md`, `CHANGELOG.md`, `package.json`.
 - [ ] `npm pack`; install into a throwaway project; probe `.` + `./package.json`.
 
