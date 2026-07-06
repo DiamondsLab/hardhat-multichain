@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChildProcess } from "child_process";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import ChainManager, {
